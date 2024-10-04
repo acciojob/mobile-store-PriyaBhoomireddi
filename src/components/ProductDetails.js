@@ -13,4 +13,4 @@ const ProductDetails = ({ product }) => {
   );
 };
 
-export default ProductDetails;
+export default ProductDetails; // Ensure this export is correct

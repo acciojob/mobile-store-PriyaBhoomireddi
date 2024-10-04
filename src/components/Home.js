@@ -18,4 +18,4 @@ const Home = ({ products }) => {
   );
 };
 
-export default Home;
+export default Home; // Ensure this export is correct
