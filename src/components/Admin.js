@@ -18,4 +18,4 @@ const Admin = ({ products, deleteProduct }) => {
   );
 };
 
-export default Admin;
+export default Admin; // Ensure this export is correct
