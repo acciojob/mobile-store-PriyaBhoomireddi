@@ -1,26 +1,37 @@
-import React from 'react';
-import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
-import Products from './Products';
+// src/components/App.js
+import React, { useState } from 'react';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import Home from './Home';
 import ProductDetails from './ProductDetails';
 import Admin from './Admin';
 
-function App() {
+const App = () => {
+  const [products, setProducts] = useState([
+    { id: 1, name: 'Mobile 1', description: 'Description 1', price: '$200' },
+    { id: 2, name: 'Mobile 2', description: 'Description 2', price: '$300' },
+    { id: 3, name: 'Mobile 3', description: 'Description 3', price: '$400' },
+  ]);
+
+  const deleteProduct = (id) => {
+    setProducts(products.filter(product => product.id !== id));
+  };
+
   return (
     <Router>
-      <div>
-        <h1>Mobile Store</h1>
-        <nav>
-          <Link to="/">Products</Link>
-          <Link to="/admin">Admin</Link>
-        </nav>
-        <Routes>
-          <Route path="/" element={<Products />} />
-          <Route path="/products/:id" element={<ProductDetails />} />
-          <Route path="/admin" element={<Admin />} />
-        </Routes>
-      </div>
+      <Switch>
+        <Route path="/" exact>
+          <Home products={products} />
+        </Route>
+        <Route path="/products/:id" render={(props) => {
+          const product = products.find(p => p.id === parseInt(props.match.params.id));
+          return <ProductDetails product={product} />;
+        }} />
+        <Route path="/admin">
+          <Admin products={products} deleteProduct={deleteProduct} />
+        </Route>
+      </Switch>
     </Router>
   );
-}
+};
 
 export default App;
